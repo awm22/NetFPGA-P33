@@ -127,7 +127,7 @@ int sr_init_low_level_subystem(int argc, char **argv)
     char *user = 0;
     char  *rtable = "rtable";
     char  *itable = CPU_HW_FILENAME;
-    char  *server = "171.67.71.19";
+    char  *server = "128.232.98.151";
     uint16_t port =  3250;
     uint16_t topo =  0;
     int ospf = 0;

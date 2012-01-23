@@ -40,6 +40,7 @@ void cli_local_main( void* pport ) {
     /* bind to the requested port */
     addr.sin_port = htons(port);
     addr.sin_addr.s_addr = 0;
+    addr.sin_family = AF_INET;
     memset(&(addr.sin_zero), 0, sizeof(addr.sin_zero));
     if( bind(bindfd, (struct sockaddr*)&addr, sizeof(struct sockaddr)) ) {
         die( "Error: unable to bind to local port %u", port );
