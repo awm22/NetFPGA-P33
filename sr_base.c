@@ -56,9 +56,13 @@
 
 #ifdef _CPUMODE_
 #include "sr_cpu_extension_nf2.h"
+#define PROG_STRING "Simple Router Client, NetFPGA mode"
+#else
+#define PROG_STRING "Simple Router Client, VNS mode"
 #endif
 
 extern char* optarg;
+extern uint16_t CLI_PORT;
 
 static void usage(char* );
 static int  sr_lwip_transport_startup(void);
@@ -150,7 +154,7 @@ int sr_init_low_level_subystem(int argc, char **argv)
 
     sr = (struct sr_instance*) malloc(sizeof(struct sr_instance));
 
-    while ((c = getopt(argc, argv, "hna:s:v:p:t:r:l:i:u:")) != EOF)
+    while ((c = getopt(argc, argv, "hna:s:v:p:t:r:l:i:u:c:")) != EOF)
     {
         switch (c)
         {
@@ -194,6 +198,9 @@ int sr_init_low_level_subystem(int argc, char **argv)
                 Debug("\nOSPF disabled!\n\n");
                 ospf = 0;
                 break;
+			case 'c':
+				CLI_PORT = atoi((char *) optarg);
+				break;
         } /* switch */
     } /* -- while -- */
 
@@ -429,7 +436,14 @@ static void sr_destroy_instance(struct sr_instance* sr) {
 
 static void usage(char* argv0)
 {
-    printf("Simple Router Client\n");
-    printf("Format: %s [-h] [-v host] [-s server] [-p port] \n",argv0);
-    printf("           [-t topo id] [-r rtable_file] [-l log_file] [-i interface_file]\n");
+    printf("%s\n", PROG_STRING);
+    printf("Format: %s [-h] [-n] [-r rtable_file] [-l log_file] [-c cli_port]\n", argv0);
+#ifdef _CPUMODE_
+    printf("           [-i interface_file]\n\n");
+#else
+	printf("           [-a auth_key_file] [-s server] [-v host] [-p port]\n");
+	printf("           [-t topo_id] [-u user]\n\n");
+#endif
+	printf("           -n disables OSPF\n");
+	printf("           -h displays this information\n");
 } /* -- usage -- */

@@ -34,7 +34,7 @@
 #include "sr_base.h"
 
 /** run the command-line interface on CLI_PORT */
-#define CLI_PORT 2300
+uint16_t CLI_PORT = 2300;
 
 int main(int argc, char** argv)
 {
