@@ -228,7 +228,7 @@ int sr_init_low_level_subystem(int argc, char **argv)
     strncpy(sr->vhost,  "cpu",    SR_NAMELEN);
     strncpy(sr->rtable, rtable, SR_NAMELEN);
 
-    if ( sr_cpu_init_hardware(sr, CPU_HW_FILENAME) )
+    if ( sr_cpu_init_hardware(sr, itable) )
     { exit(1); }
     sr_integ_hw_setup(sr);
 #else
