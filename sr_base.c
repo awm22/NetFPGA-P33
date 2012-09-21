@@ -445,5 +445,8 @@ static void usage(char* argv0)
 	printf("           [-t topo_id] [-u user]\n\n");
 #endif
 	printf("           -n disables OSPF\n");
-	printf("           -h displays this information\n");
+	printf("           -h displays this information\n\n");
+	printf("           if you do 'mkdir log && touch log/.count'\n");
+	printf("           then you can set log_file to 'auto', this will generate\n");
+	printf("           log files automatically in log/\n");
 } /* -- usage -- */
