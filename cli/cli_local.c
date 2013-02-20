@@ -42,9 +42,11 @@ void cli_local_main( void* pport ) {
     addr.sin_addr.s_addr = 0;
     addr.sin_family = AF_INET;
     memset(&(addr.sin_zero), 0, sizeof(addr.sin_zero));
-    if( bind(bindfd, (struct sockaddr*)&addr, sizeof(struct sockaddr)) ) {
-        die( "Error: unable to bind to local port %u", port );
+    while( bind(bindfd, (struct sockaddr*)&addr, sizeof(struct sockaddr)) ) {
+        fprintf(stderr, "Error: unable to bind to local port %u\n", port);
+		addr.sin_port = htons(++port);
     }
+	fprintf(stderr, "CLI started locally on port %u\n", port);
 
     /* listen for clients */
     listen( bindfd, 10 );
